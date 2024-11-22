@@ -73,9 +73,6 @@ export class Especie {
   @Column("integer", { name: "especie_flavor_text_id", nullable: true })
   especieFlavorTextId: number | null;
 
-  @OneToMany(() => Catalogo, (catalogo) => catalogo.especie)
-  catalogos: Catalogo[];
-
   @OneToMany(() => EggGroup, (eggGroup) => eggGroup.especie)
   eggGroups: EggGroup[];
 

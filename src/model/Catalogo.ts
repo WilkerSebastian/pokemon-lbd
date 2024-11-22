@@ -11,7 +11,7 @@ export class Catalogo {
   @JoinColumn([{ name: "pokedex_id", referencedColumnName: "id" }])
   pokedex: Pokedex;
 
-  @ManyToOne(() => Especie, (especie) => especie.catalogos)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "especie_id", referencedColumnName: "id" }])
   especie: Especie;
 }
