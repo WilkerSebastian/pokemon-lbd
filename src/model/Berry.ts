@@ -46,10 +46,8 @@ export class Berry {
   @Column("character varying", { name: "firmness", nullable: true, length: 50 })
   firmness: string | null;
 
-  @ManyToOne(() => Item, (item) => item.berries)
+  @ManyToOne(() => Item, (item) => item.id)
   @JoinColumn([{ name: "item_id", referencedColumnName: "id" }])
   item: Item;
 
-  @OneToMany(() => BerryFlavor, (berryFlavor) => berryFlavor.berry)
-  berryFlavors: BerryFlavor[];
 }

@@ -1,8 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Movimento } from "./Movimento";
 
 @Entity("movimento_past_values", { schema: "public" })
 export class MovimentoPastValues {
+  @PrimaryColumn("integer", { generated: "increment", name: "id" })
+  id: number;
+  
   @Column("integer", { name: "accuracy", nullable: true })
   accuracy: number | null;
 
@@ -21,7 +24,7 @@ export class MovimentoPastValues {
   @Column("integer", { name: "version_group", nullable: true })
   versionGroup: number | null;
 
-  @ManyToOne(() => Movimento, (movimento) => movimento.movimentoPastValues)
+  @ManyToOne(() => Movimento, (movimento) => movimento.id)
   @JoinColumn([{ name: "movimento_id", referencedColumnName: "id" }])
   movimento: Movimento;
 }

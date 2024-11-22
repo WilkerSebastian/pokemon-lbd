@@ -29,7 +29,7 @@ export class HabilidadeEffectEntry {
 
   @ManyToOne(
     () => Habilidade,
-    (habilidade) => habilidade.habilidadeEffectEntries
+    (habilidade) => habilidade.id
   )
   @JoinColumn([{ name: "habilidade_id", referencedColumnName: "id" }])
   habilidade: Habilidade;

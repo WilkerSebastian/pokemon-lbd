@@ -1,8 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Movimento } from "./Movimento";
 
 @Entity("movimento_meta", { schema: "public" })
 export class MovimentoMeta {
+  @PrimaryColumn("integer", { generated: "increment", name: "id" })
+  id: number;
+
   @Column("character varying", { name: "ailment", nullable: true, length: 50 })
   ailment: string | null;
 
@@ -33,7 +36,7 @@ export class MovimentoMeta {
   @Column("character varying", { name: "category", nullable: true, length: 50 })
   category: string | null;
 
-  @ManyToOne(() => Movimento, (movimento) => movimento.movimentoMetas)
+  @ManyToOne(() => Movimento, (movimento) => movimento.id)
   @JoinColumn([{ name: "movimento_id", referencedColumnName: "id" }])
   movimento: Movimento;
 }

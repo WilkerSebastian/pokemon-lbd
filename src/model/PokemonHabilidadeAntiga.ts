@@ -1,9 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Habilidade } from "./Habilidade";
 import { Pokemon } from "./Pokemon";
 
 @Entity("pokemon_habilidade_antiga", { schema: "public" })
 export class PokemonHabilidadeAntiga {
+  @PrimaryColumn("integer", { generated: "increment", name: "id" })
+  id: number;
+  
   @Column("character varying", {
     name: "generation",
     nullable: true,
@@ -19,12 +22,12 @@ export class PokemonHabilidadeAntiga {
 
   @ManyToOne(
     () => Habilidade,
-    (habilidade) => habilidade.pokemonHabilidadeAntigas
+    (habilidade) => habilidade.id
   )
   @JoinColumn([{ name: "habilidade_id", referencedColumnName: "id" }])
   habilidade: Habilidade;
 
-  @ManyToOne(() => Pokemon, (pokemon) => pokemon.pokemonHabilidadeAntigas)
+  @ManyToOne(() => Pokemon, (pokemon) => pokemon.id)
   @JoinColumn([{ name: "pokemon_id", referencedColumnName: "id" }])
   pokemon: Pokemon;
 }

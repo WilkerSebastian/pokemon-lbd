@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Area } from "./Area";
 import { Item } from "./Item";
 import { Movimento } from "./Movimento";
@@ -7,6 +7,9 @@ import { Tipo } from "./Tipo";
 
 @Entity("evolucao", { schema: "public" })
 export class Evolucao {
+  @PrimaryColumn("integer", { generated: "increment", name: "id" })
+  id: number;
+
   @Column("integer", { name: "location", nullable: true })
   location: number | null;
 
@@ -44,39 +47,39 @@ export class Evolucao {
   @Column("boolean", { name: "turn_upside_down", nullable: true })
   turnUpsideDown: boolean | null;
 
-  @ManyToOne(() => Area, (area) => area.evolucaos)
+  @ManyToOne(() => Area, (area) => area.id)
   @JoinColumn([{ name: "area_id", referencedColumnName: "id" }])
   area: Area;
 
-  @ManyToOne(() => Item, (item) => item.evolucaos)
+  @ManyToOne(() => Item, (item) => item.id)
   @JoinColumn([{ name: "held_item", referencedColumnName: "id" }])
   heldItem: Item;
 
-  @ManyToOne(() => Movimento, (movimento) => movimento.evolucaos)
+  @ManyToOne(() => Movimento, (movimento) => movimento.id)
   @JoinColumn([{ name: "known_move_id", referencedColumnName: "id" }])
   knownMove: Movimento;
 
-  @ManyToOne(() => Especie, (especie) => especie.evolucaos)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "especie_anterior", referencedColumnName: "id" }])
   especieAnterior: Especie;
 
-  @ManyToOne(() => Especie, (especie) => especie.evolucaos2)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "especie_evoluida", referencedColumnName: "id" }])
   especieEvoluida: Especie;
 
-  @ManyToOne(() => Tipo, (tipo) => tipo.evolucaos)
+  @ManyToOne(() => Tipo, (tipo) => tipo.id)
   @JoinColumn([{ name: "known_move_type", referencedColumnName: "id" }])
   knownMoveType: Tipo;
 
-  @ManyToOne(() => Especie, (especie) => especie.evolucaos3)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "party_species", referencedColumnName: "id" }])
   partySpecies: Especie;
 
-  @ManyToOne(() => Tipo, (tipo) => tipo.evolucaos2)
+  @ManyToOne(() => Tipo, (tipo) => tipo.id)
   @JoinColumn([{ name: "party_type", referencedColumnName: "id" }])
   partyType: Tipo;
 
-  @ManyToOne(() => Especie, (especie) => especie.evolucaos4)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "trade_species", referencedColumnName: "id" }])
   tradeSpecies: Especie;
 }

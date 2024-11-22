@@ -1,9 +1,9 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { Catalogo } from "./Catalogo";
+import { Column, Entity, Index, PrimaryColumn } from "typeorm";
 
 @Index("pokedex_pkey", ["id"], { unique: true })
 @Entity("pokedex", { schema: "public" })
 export class Pokedex {
+  @PrimaryColumn()
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
@@ -19,6 +19,4 @@ export class Pokedex {
   @Column("text", { name: "descricao", nullable: true })
   descricao: string | null;
 
-  @OneToMany(() => Catalogo, (catalogo) => catalogo.pokedex)
-  catalogos: Catalogo[];
 }

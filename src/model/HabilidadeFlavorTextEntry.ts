@@ -26,7 +26,7 @@ export class HabilidadeFlavorTextEntry {
 
   @ManyToOne(
     () => Habilidade,
-    (habilidade) => habilidade.habilidadeFlavorTextEntries
+    (habilidade) => habilidade.id
   )
   @JoinColumn([{ name: "habilidade_id", referencedColumnName: "id" }])
   habilidade: Habilidade;

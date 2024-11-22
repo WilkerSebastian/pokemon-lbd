@@ -18,6 +18,4 @@ export class MoveDamageClass {
   @OneToMany(() => Movimento, (movimento) => movimento.damageClass)
   movimentos: Movimento[];
 
-  @OneToMany(() => Stat, (stat) => stat.damageClass)
-  stats: Stat[];
 }

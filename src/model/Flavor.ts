@@ -17,10 +17,5 @@ export class Flavor {
     length: 50,
   })
   contestType: string | null;
-
-  @OneToMany(() => BerryFlavor, (berryFlavor) => berryFlavor.flavor)
-  berryFlavors: BerryFlavor[];
-
-  @OneToMany(() => Nature, (nature) => nature.likesFlavor)
-  natures: Nature[];
+  
 }

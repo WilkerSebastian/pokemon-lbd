@@ -1,8 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Movimento } from "./Movimento";
 
 @Entity("move_flavor_text_entry", { schema: "public" })
 export class MoveFlavorTextEntry {
+  @PrimaryColumn("integer", { generated: "increment", name: "id" })
+  id: number;
+  
   @Column("text", { name: "flavor_text", nullable: true })
   flavorText: string | null;
 
@@ -16,7 +19,7 @@ export class MoveFlavorTextEntry {
   })
   versionGroup: string | null;
 
-  @ManyToOne(() => Movimento, (movimento) => movimento.moveFlavorTextEntries)
+  @ManyToOne(() => Movimento, (movimento) => movimento.id)
   @JoinColumn([{ name: "move_id", referencedColumnName: "id" }])
   move: Movimento;
 }

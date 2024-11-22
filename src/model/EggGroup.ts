@@ -10,7 +10,7 @@ export class EggGroup {
   @Column("character varying", { primary: true, name: "nome", length: 50 })
   nome: string;
 
-  @ManyToOne(() => Especie, (especie) => especie.eggGroups)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "especie_id", referencedColumnName: "id" }])
   especie: Especie;
 }

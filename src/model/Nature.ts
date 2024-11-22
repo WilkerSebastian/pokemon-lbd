@@ -20,27 +20,16 @@ export class Nature {
   @Column("character varying", { name: "nome", nullable: true, length: 50 })
   nome: string | null;
 
-  @OneToMany(
-    () => BattleStylePreference,
-    (battleStylePreference) => battleStylePreference.nature
-  )
-  battleStylePreferences: BattleStylePreference[];
-
-  @ManyToOne(() => Flavor, (flavor) => flavor.natures)
+  @ManyToOne(() => Flavor, (flavor) => flavor.id)
   @JoinColumn([{ name: "likes_flavor_id", referencedColumnName: "id" }])
   likesFlavor: Flavor;
 
-  @ManyToOne(() => Stat, (stat) => stat.natures)
+  @ManyToOne(() => Stat, (stat) => stat.id)
   @JoinColumn([{ name: "stat_aumentado_id", referencedColumnName: "id" }])
   statAumentado: Stat;
 
-  @ManyToOne(() => Stat, (stat) => stat.natures2)
+  @ManyToOne(() => Stat, (stat) => stat.id)
   @JoinColumn([{ name: "stat_diminuido_id", referencedColumnName: "id" }])
   statDiminuido: Stat;
 
-  @OneToMany(
-    () => PokeathlonStatChange,
-    (pokeathlonStatChange) => pokeathlonStatChange.nature
-  )
-  pokeathlonStatChanges: PokeathlonStatChange[];
 }

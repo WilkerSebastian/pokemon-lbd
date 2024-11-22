@@ -73,40 +73,8 @@ export class Especie {
   @Column("integer", { name: "especie_flavor_text_id", nullable: true })
   especieFlavorTextId: number | null;
 
-  @OneToMany(() => EggGroup, (eggGroup) => eggGroup.especie)
-  eggGroups: EggGroup[];
-
-  @ManyToOne(() => GrowthRate, (growthRate) => growthRate.especies)
+  @ManyToOne(() => GrowthRate, (growthRate) => growthRate.id)
   @JoinColumn([{ name: "growth_rate_id", referencedColumnName: "id" }])
   growthRate: GrowthRate;
 
-  @OneToMany(
-    () => EspecieFlavorText,
-    (especieFlavorText) => especieFlavorText.especie
-  )
-  especieFlavorTexts: EspecieFlavorText[];
-
-  @OneToMany(() => Evolucao, (evolucao) => evolucao.especieAnterior)
-  evolucaos: Evolucao[];
-
-  @OneToMany(() => Evolucao, (evolucao) => evolucao.especieEvoluida)
-  evolucaos2: Evolucao[];
-
-  @OneToMany(() => Evolucao, (evolucao) => evolucao.partySpecies)
-  evolucaos3: Evolucao[];
-
-  @OneToMany(() => Evolucao, (evolucao) => evolucao.tradeSpecies)
-  evolucaos4: Evolucao[];
-
-  @OneToMany(() => Genero, (genero) => genero.pokemonEspecie2)
-  generos: Genero[];
-
-  @OneToMany(
-    () => PalParkEncounter,
-    (palParkEncounter) => palParkEncounter.especie
-  )
-  palParkEncounters: PalParkEncounter[];
-
-  @OneToMany(() => Pokemon, (pokemon) => pokemon.especie)
-  pokemon: Pokemon[];
 }

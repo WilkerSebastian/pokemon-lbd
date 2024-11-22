@@ -34,17 +34,12 @@ export class Encounter {
   @Column("integer", { name: "max_chance", nullable: true })
   maxChance: number | null;
 
-  @ManyToOne(() => Area, (area) => area.encounters)
+  @ManyToOne(() => Area, (area) => area.id)
   @JoinColumn([{ name: "area_id", referencedColumnName: "id" }])
   area: Area;
 
-  @ManyToOne(() => Pokemon, (pokemon) => pokemon.encounters)
+  @ManyToOne(() => Pokemon, (pokemon) => pokemon.id)
   @JoinColumn([{ name: "pokemon_id", referencedColumnName: "id" }])
   pokemon: Pokemon;
 
-  @OneToMany(
-    () => EncounterCondition,
-    (encounterCondition) => encounterCondition.encounter
-  )
-  encounterConditions: EncounterCondition[];
 }

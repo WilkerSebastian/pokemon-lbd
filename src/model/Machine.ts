@@ -15,11 +15,11 @@ export class Machine {
   })
   versionGroup: string | null;
 
-  @ManyToOne(() => Item, (item) => item.machines)
+  @ManyToOne(() => Item, (item) => item.id)
   @JoinColumn([{ name: "item_id", referencedColumnName: "id" }])
   item: Item;
 
-  @ManyToOne(() => Movimento, (movimento) => movimento.machines)
+  @ManyToOne(() => Movimento, (movimento) => movimento.id)
   @JoinColumn([{ name: "movimento_id", referencedColumnName: "id" }])
   movimento: Movimento;
 }

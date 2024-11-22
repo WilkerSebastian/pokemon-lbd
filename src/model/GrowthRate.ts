@@ -16,6 +16,4 @@ export class GrowthRate {
   @Column("character varying", { name: "formula", nullable: true, length: 50 })
   formula: string | null;
 
-  @OneToMany(() => Especie, (especie) => especie.growthRate)
-  especies: Especie[];
 }

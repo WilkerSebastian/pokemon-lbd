@@ -1,5 +1,4 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { ItemAtributo } from "./ItemAtributo";
+import { Column, Entity, Index } from "typeorm";
 
 @Index("atributo_pkey", ["id"], { unique: true })
 @Entity("atributo", { schema: "public" })
@@ -12,7 +11,4 @@ export class Atributo {
 
   @Column("text", { name: "descricao", nullable: true })
   descricao: string | null;
-
-  @OneToMany(() => ItemAtributo, (itemAtributo) => itemAtributo.atributo)
-  itemAtributos: ItemAtributo[];
 }

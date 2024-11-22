@@ -27,22 +27,7 @@ export class Stat {
   @Column("integer", { name: "game_index", nullable: true })
   gameIndex: number | null;
 
-  @OneToMany(() => Caracteristica, (caracteristica) => caracteristica.stat)
-  caracteristicas: Caracteristica[];
-
-  @OneToMany(() => Modifica, (modifica) => modifica.stat)
-  modificas: Modifica[];
-
-  @OneToMany(() => Nature, (nature) => nature.statAumentado)
-  natures: Nature[];
-
-  @OneToMany(() => Nature, (nature) => nature.statDiminuido)
-  natures2: Nature[];
-
-  @OneToMany(() => PokemonStat, (pokemonStat) => pokemonStat.stat)
-  pokemonStats: PokemonStat[];
-
-  @ManyToOne(() => MoveDamageClass, (moveDamageClass) => moveDamageClass.stats)
+  @ManyToOne(() => MoveDamageClass, (moveDamageClass) => moveDamageClass.nome)
   @JoinColumn([{ name: "damage_class", referencedColumnName: "nome" }])
   damageClass: MoveDamageClass;
 }

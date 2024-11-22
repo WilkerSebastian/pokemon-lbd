@@ -14,11 +14,11 @@ export class ItemSegurado {
   @Column("integer", { name: "rarity", nullable: true })
   rarity: number | null;
 
-  @ManyToOne(() => Item, (item) => item.itemSegurados)
+  @ManyToOne(() => Item, (item) => item.id)
   @JoinColumn([{ name: "item_id", referencedColumnName: "id" }])
   item: Item;
 
-  @ManyToOne(() => Pokemon, (pokemon) => pokemon.itemSegurados)
+  @ManyToOne(() => Pokemon, (pokemon) => pokemon.id)
   @JoinColumn([{ name: "pokemon_id", referencedColumnName: "id" }])
   pokemon: Pokemon;
 }

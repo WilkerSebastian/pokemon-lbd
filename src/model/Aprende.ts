@@ -1,9 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Movimento } from "./Movimento";
 import { Pokemon } from "./Pokemon";
 
 @Entity("aprende", { schema: "public" })
 export class Aprende {
+  @PrimaryColumn("integer", { generated: "increment", name: "id" })
+  id: number;
+
   @Column("integer", { name: "level_learned_at", nullable: true })
   levelLearnedAt: number | null;
 
@@ -17,11 +20,11 @@ export class Aprende {
   })
   versionGroup: string | null;
 
-  @ManyToOne(() => Movimento, (movimento) => movimento.aprendes)
+  @ManyToOne(() => Movimento, (movimento) => movimento.id)
   @JoinColumn([{ name: "move_id", referencedColumnName: "id" }])
   move: Movimento;
 
-  @ManyToOne(() => Pokemon, (pokemon) => pokemon.aprendes)
+  @ManyToOne(() => Pokemon, (pokemon) => pokemon.id)
   @JoinColumn([{ name: "pokemon_id", referencedColumnName: "id" }])
   pokemon: Pokemon;
 }

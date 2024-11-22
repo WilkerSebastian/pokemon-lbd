@@ -22,28 +22,5 @@ export class Habilidade {
 
   @Column("boolean", { name: "is_main_series", nullable: true })
   isMainSeries: boolean | null;
-
-  @OneToMany(
-    () => HabilidadeEffectEntry,
-    (habilidadeEffectEntry) => habilidadeEffectEntry.habilidade
-  )
-  habilidadeEffectEntries: HabilidadeEffectEntry[];
-
-  @OneToMany(
-    () => HabilidadeFlavorTextEntry,
-    (habilidadeFlavorTextEntry) => habilidadeFlavorTextEntry.habilidade
-  )
-  habilidadeFlavorTextEntries: HabilidadeFlavorTextEntry[];
-
-  @OneToMany(
-    () => PokemonHabilidade,
-    (pokemonHabilidade) => pokemonHabilidade.habilidade
-  )
-  pokemonHabilidades: PokemonHabilidade[];
-
-  @OneToMany(
-    () => PokemonHabilidadeAntiga,
-    (pokemonHabilidadeAntiga) => pokemonHabilidadeAntiga.habilidade
-  )
-  pokemonHabilidadeAntigas: PokemonHabilidadeAntiga[];
+  
 }

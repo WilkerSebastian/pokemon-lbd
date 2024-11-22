@@ -18,7 +18,7 @@ export class EspecieFlavorText {
   @Column("text", { name: "flavor_text", nullable: true })
   flavorText: string | null;
 
-  @ManyToOne(() => Especie, (especie) => especie.especieFlavorTexts)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "especie_id", referencedColumnName: "id" }])
   especie: Especie;
 }

@@ -4,21 +4,11 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
 } from "typeorm";
-import { Aprende } from "./Aprende";
-import { ContestCombo } from "./ContestCombo";
-import { Evolucao } from "./Evolucao";
-import { Machine } from "./Machine";
-import { Modifica } from "./Modifica";
-import { MoveEffectEntry } from "./MoveEffectEntry";
-import { MoveFlavorTextEntry } from "./MoveFlavorTextEntry";
 import { ContestEffect } from "./ContestEffect";
 import { MoveDamageClass } from "./MoveDamageClass";
 import { MoveTarget } from "./MoveTarget";
 import { Tipo } from "./Tipo";
-import { MovimentoMeta } from "./MovimentoMeta";
-import { MovimentoPastValues } from "./MovimentoPastValues";
 
 @Index("movimento_pkey", ["id"], { unique: true })
 @Entity("movimento", { schema: "public" })
@@ -58,58 +48,23 @@ export class Movimento {
   })
   generation: string | null;
 
-  @OneToMany(() => Aprende, (aprende) => aprende.move)
-  aprendes: Aprende[];
-
-  @OneToMany(() => ContestCombo, (contestCombo) => contestCombo.firstMove)
-  contestCombos: ContestCombo[];
-
-  @OneToMany(() => ContestCombo, (contestCombo) => contestCombo.secondMove)
-  contestCombos2: ContestCombo[];
-
-  @OneToMany(() => Evolucao, (evolucao) => evolucao.knownMove)
-  evolucaos: Evolucao[];
-
-  @OneToMany(() => Machine, (machine) => machine.movimento)
-  machines: Machine[];
-
-  @OneToMany(() => Modifica, (modifica) => modifica.movimento)
-  modificas: Modifica[];
-
-  @OneToMany(() => MoveEffectEntry, (moveEffectEntry) => moveEffectEntry.move)
-  moveEffectEntries: MoveEffectEntry[];
-
-  @OneToMany(
-    () => MoveFlavorTextEntry,
-    (moveFlavorTextEntry) => moveFlavorTextEntry.move
-  )
-  moveFlavorTextEntries: MoveFlavorTextEntry[];
-
-  @ManyToOne(() => ContestEffect, (contestEffect) => contestEffect.movimentos)
+  @ManyToOne(() => ContestEffect, (contestEffect) => contestEffect.id)
   @JoinColumn([{ name: "contest_effect", referencedColumnName: "id" }])
   contestEffect: ContestEffect;
 
   @ManyToOne(
     () => MoveDamageClass,
-    (moveDamageClass) => moveDamageClass.movimentos
+    (moveDamageClass) => moveDamageClass.nome
   )
   @JoinColumn([{ name: "damage_class", referencedColumnName: "nome" }])
   damageClass: MoveDamageClass;
 
-  @ManyToOne(() => MoveTarget, (moveTarget) => moveTarget.movimentos)
+  @ManyToOne(() => MoveTarget, (moveTarget) => moveTarget.nome)
   @JoinColumn([{ name: "target", referencedColumnName: "nome" }])
   target: MoveTarget;
 
-  @ManyToOne(() => Tipo, (tipo) => tipo.movimentos)
+  @ManyToOne(() => Tipo, (tipo) => tipo.id)
   @JoinColumn([{ name: "tipo_id", referencedColumnName: "id" }])
   tipo: Tipo;
 
-  @OneToMany(() => MovimentoMeta, (movimentoMeta) => movimentoMeta.movimento)
-  movimentoMetas: MovimentoMeta[];
-
-  @OneToMany(
-    () => MovimentoPastValues,
-    (movimentoPastValues) => movimentoPastValues.movimento
-  )
-  movimentoPastValues: MovimentoPastValues[];
 }

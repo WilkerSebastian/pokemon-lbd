@@ -1,5 +1,4 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { Movimento } from "./Movimento";
+import { Column, Entity, Index } from "typeorm";
 
 @Index("move_target_pkey", ["nome"], { unique: true })
 @Entity("move_target", { schema: "public" })
@@ -9,7 +8,4 @@ export class MoveTarget {
 
   @Column("text", { name: "descricao", nullable: true })
   descricao: string | null;
-
-  @OneToMany(() => Movimento, (movimento) => movimento.target)
-  movimentos: Movimento[];
 }

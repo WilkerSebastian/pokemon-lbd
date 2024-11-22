@@ -1,8 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Pokemon } from "./Pokemon";
 
 @Entity("sprite_pokemon", { schema: "public" })
 export class SpritePokemon {
+  @PrimaryColumn("integer", {generated: "increment", name: "id" })
+  id: number
+
   @Column("text", { name: "back_default", nullable: true })
   backDefault: string | null;
 
@@ -27,7 +30,7 @@ export class SpritePokemon {
   @Column("text", { name: "front_shiny_female", nullable: true })
   frontShinyFemale: string | null;
 
-  @ManyToOne(() => Pokemon, (pokemon) => pokemon.spritePokemon)
+  @ManyToOne(() => Pokemon, (pokemon) => pokemon.id)
   @JoinColumn([{ name: "pokemon_id", referencedColumnName: "id" }])
   pokemon: Pokemon;
 }

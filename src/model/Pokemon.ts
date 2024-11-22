@@ -4,18 +4,8 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
 } from "typeorm";
-import { Aprende } from "./Aprende";
-import { Encounter } from "./Encounter";
-import { ItemSegurado } from "./ItemSegurado";
 import { Especie } from "./Especie";
-import { PokemonHabilidade } from "./PokemonHabilidade";
-import { PokemonHabilidadeAntiga } from "./PokemonHabilidadeAntiga";
-import { PokemonStat } from "./PokemonStat";
-import { PokemonTipo } from "./PokemonTipo";
-import { PokemonTipoAntigo } from "./PokemonTipoAntigo";
-import { SpritePokemon } from "./SpritePokemon";
 
 @Index("pokemon_pkey", ["id"], { unique: true })
 @Entity("pokemon", { schema: "public" })
@@ -47,43 +37,8 @@ export class Pokemon {
   @Column("text", { name: "legacy_cry", nullable: true })
   legacyCry: string | null;
 
-  @OneToMany(() => Aprende, (aprende) => aprende.pokemon)
-  aprendes: Aprende[];
-
-  @OneToMany(() => Encounter, (encounter) => encounter.pokemon)
-  encounters: Encounter[];
-
-  @OneToMany(() => ItemSegurado, (itemSegurado) => itemSegurado.pokemon)
-  itemSegurados: ItemSegurado[];
-
-  @ManyToOne(() => Especie, (especie) => especie.pokemon)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "especie_id", referencedColumnName: "id" }])
   especie: Especie;
 
-  @OneToMany(
-    () => PokemonHabilidade,
-    (pokemonHabilidade) => pokemonHabilidade.pokemon
-  )
-  pokemonHabilidades: PokemonHabilidade[];
-
-  @OneToMany(
-    () => PokemonHabilidadeAntiga,
-    (pokemonHabilidadeAntiga) => pokemonHabilidadeAntiga.pokemon
-  )
-  pokemonHabilidadeAntigas: PokemonHabilidadeAntiga[];
-
-  @OneToMany(() => PokemonStat, (pokemonStat) => pokemonStat.pokemon)
-  pokemonStats: PokemonStat[];
-
-  @OneToMany(() => PokemonTipo, (pokemonTipo) => pokemonTipo.pokemon)
-  pokemonTipos: PokemonTipo[];
-
-  @OneToMany(
-    () => PokemonTipoAntigo,
-    (pokemonTipoAntigo) => pokemonTipoAntigo.pokemon
-  )
-  pokemonTipoAntigos: PokemonTipoAntigo[];
-
-  @OneToMany(() => SpritePokemon, (spritePokemon) => spritePokemon.pokemon)
-  spritePokemon: SpritePokemon[];
 }

@@ -13,7 +13,7 @@ export class PokeathlonStatChange {
   @Column("integer", { name: "max_change", nullable: true })
   maxChange: number | null;
 
-  @ManyToOne(() => Nature, (nature) => nature.pokeathlonStatChanges)
+  @ManyToOne(() => Nature, (nature) => nature.id)
   @JoinColumn([{ name: "nature_id", referencedColumnName: "id" }])
   nature: Nature;
 }

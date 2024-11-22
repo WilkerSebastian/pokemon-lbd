@@ -13,8 +13,6 @@ async function main() {
 
     }
 
-    
-
     await AppDataSource.destroy();
 
 }
