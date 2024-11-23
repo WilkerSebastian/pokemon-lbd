@@ -8,6 +8,7 @@ import { HabilidadeFlavorTextEntry } from "./model/HabilidadeFlavorTextEntry";
 import { Pokemon } from "./model/Pokemon";
 import { PokemonHabilidade } from "./model/PokemonHabilidade";
 import { PokemonHabilidadeAntiga } from "./model/PokemonHabilidadeAntiga";
+import { SpritePokemon } from "./model/SpritePokemon";
 import { EncounterService } from "./service/EncounterService";
 import { HabilidadeService } from "./service/HabilidadeService";
 import { PokemonService } from "./service/PokemonService";
@@ -144,6 +145,10 @@ async function main() {
                 }
 
             }
+
+            const sprites = await PokemonService.createSpritePokemon(restData.sprites, pokemon)
+
+            await AppDataSource.getRepository(SpritePokemon).save(sprites)
             
         }
 

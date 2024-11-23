@@ -1,5 +1,6 @@
 import { api } from "../config/api";
 import { Pokemon } from "../model/Pokemon";
+import { SpritePokemon } from "../model/SpritePokemon";
 import { getUniqueProperties } from "../utils/uniqueProp";
 
 export class PokemonService {
@@ -32,6 +33,24 @@ export class PokemonService {
         }
 
         return {pokemon, restData}
+
+    }
+
+    public static async createSpritePokemon(data:any, pokemon: Pokemon) {
+
+        const sprite = new SpritePokemon()
+
+        sprite.backDefault = data.back_default
+        sprite.backFemale = data.back_female
+        sprite.backShiny = data.back_shiny
+        sprite.backShiny = data.back_shiny_female
+        sprite.frontDefault = data.front_default
+        sprite.frontFemale = data.front_female
+        sprite.frontShiny = data.front_shiny
+        sprite.frontShinyFemale = data.front_shiny_female
+        sprite.pokemon = pokemon
+
+        return sprite
 
     }
 
