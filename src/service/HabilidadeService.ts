@@ -5,6 +5,7 @@ import type { Pokemon } from "../model/Pokemon";
 import { HabilidadeEffectEntry } from "../model/HabilidadeEffectEntry";
 import { HabilidadeFlavorTextEntry } from "../model/HabilidadeFlavorTextEntry";
 import { getUniqueProperties } from "../utils/uniqueProp";
+import { PokemonHabilidadeAntiga } from "../model/PokemonHabilidadeAntiga";
 
 export class HabilidadeService {
 
@@ -55,7 +56,7 @@ export class HabilidadeService {
     public static async createHabilidadeEffectEntry(data: any, habilidade: Habilidade) {
 
         const habilidadeEffectEntry = new HabilidadeEffectEntry()
-        
+
         habilidadeEffectEntry.habilidadeId = habilidade.id
         habilidadeEffectEntry.language = data.language.name
         habilidadeEffectEntry.effect = data.effect
@@ -63,6 +64,20 @@ export class HabilidadeService {
 
         return habilidadeEffectEntry
     
+    }
+
+    public static async createHabilidadeAntiga(data: any, pkemon: Pokemon, habilidade: Habilidade) {
+
+        const habilidadeAntiga = new PokemonHabilidadeAntiga()
+
+        habilidadeAntiga.slot = data.slot
+        habilidadeAntiga.isHidden = data.is_hidden
+        habilidadeAntiga.generation = data.generation
+        habilidadeAntiga.pokemon = pkemon
+        habilidadeAntiga.habilidade = habilidade
+
+        return habilidadeAntiga
+
     }
 
 }
