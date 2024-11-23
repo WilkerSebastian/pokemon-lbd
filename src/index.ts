@@ -4,6 +4,7 @@ import { Encounter } from "./model/Encounter";
 import { EncounterCondition } from "./model/EncounterCondition";
 import { Especie } from "./model/Especie";
 import { EspecieFlavorText } from "./model/EspecieFlavorText";
+import { Genero } from "./model/Genero";
 import { GrowthRate } from "./model/GrowthRate";
 import { Habilidade } from "./model/Habilidade";
 import { HabilidadeEffectEntry } from "./model/HabilidadeEffectEntry";
@@ -160,6 +161,14 @@ async function main() {
             const especie = await EspecieService.createEspecie(especie_data, growthRate)
 
             const especieInserted = await AppDataSource.getRepository(Especie).save(especie)
+
+            for (const genero_data of especie_data.genera) {
+
+                const genero = await EspecieService.createGenero(genero_data, especieInserted)
+
+                await AppDataSource.getRepository(Genero).save(genero)
+
+            }
 
             for (const pal_park_encounter of especie_data.pal_park_encounters) {
 

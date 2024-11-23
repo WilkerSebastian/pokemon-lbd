@@ -13,7 +13,7 @@ export class Genero {
   @Column("character varying", { name: "genero", nullable: true, length: 50 })
   genero: string | null;
 
-  @ManyToOne(() => Especie, (especie) => especie.generos)
+  @ManyToOne(() => Especie, (especie) => especie.id)
   @JoinColumn([{ name: "pokemon_especie", referencedColumnName: "id" }])
   pokemonEspecie2: Especie;
 }

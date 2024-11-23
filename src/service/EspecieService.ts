@@ -1,6 +1,7 @@
 import { api } from "../config/api";
 import { Especie } from "../model/Especie";
 import { EspecieFlavorText } from "../model/EspecieFlavorText";
+import { Genero } from "../model/Genero";
 import { GrowthRate } from "../model/GrowthRate";
 import { PalParkEncounter } from "../model/PalParkEncounter";
 
@@ -79,6 +80,19 @@ export class EspecieService {
         palParkEncounter.especie = especie
 
         return palParkEncounter
+
+    }
+
+    public static async createGenero(data: any, especie: Especie) {
+
+        const genero = new Genero()
+
+        genero.pokemonEspecie = especie.id
+        genero.lingua = data.language.name
+        genero.genero = data.genus
+        genero.pokemonEspecie2 = especie
+
+        return genero
 
     }
 
