@@ -2,6 +2,7 @@ import { api } from "../config/api";
 import { Especie } from "../model/Especie";
 import { EspecieFlavorText } from "../model/EspecieFlavorText";
 import { GrowthRate } from "../model/GrowthRate";
+import { PalParkEncounter } from "../model/PalParkEncounter";
 
 export class EspecieService {
 
@@ -65,6 +66,19 @@ export class EspecieService {
         growthRate.formula = data.formula
 
         return growthRate
+
+    }
+
+    public static async createPalParkEncounters(data: any, especie: Especie) {
+
+        const palParkEncounter = new PalParkEncounter()
+
+        palParkEncounter.nome = data.area.name
+        palParkEncounter.baseScore = data.base_score
+        palParkEncounter.rate = data.rate
+        palParkEncounter.especie = especie
+
+        return palParkEncounter
 
     }
 

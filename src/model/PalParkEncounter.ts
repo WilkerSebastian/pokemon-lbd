@@ -3,7 +3,7 @@ import { Especie } from "./Especie";
 
 @Entity("pal_park_encounter", { schema: "public" })
 export class PalParkEncounter {
-  @PrimaryColumn("integer", { primary: true, name: "id" })
+  @PrimaryColumn("integer", { primary: true, generated: true, name: "id" })
   id: number;
 
   @Column("character varying", { name: "nome", nullable: true, length: 50 })

@@ -8,6 +8,7 @@ import { GrowthRate } from "./model/GrowthRate";
 import { Habilidade } from "./model/Habilidade";
 import { HabilidadeEffectEntry } from "./model/HabilidadeEffectEntry";
 import { HabilidadeFlavorTextEntry } from "./model/HabilidadeFlavorTextEntry";
+import { PalParkEncounter } from "./model/PalParkEncounter";
 import { Pokemon } from "./model/Pokemon";
 import { PokemonHabilidade } from "./model/PokemonHabilidade";
 import { PokemonHabilidadeAntiga } from "./model/PokemonHabilidadeAntiga";
@@ -159,6 +160,14 @@ async function main() {
             const especie = await EspecieService.createEspecie(especie_data, growthRate)
 
             const especieInserted = await AppDataSource.getRepository(Especie).save(especie)
+
+            for (const pal_park_encounter of especie_data.pal_park_encounters) {
+
+                const palParkEncounter = await EspecieService.createPalParkEncounters(pal_park_encounter, especieInserted)
+
+                await AppDataSource.getRepository(PalParkEncounter).save(palParkEncounter)
+
+            }
 
             for (const flavorTextEntry of especie_data.flavor_text_entries) {
 
