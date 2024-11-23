@@ -1,5 +1,6 @@
 import { AppDataSource } from "./database/data-source";
 import { Area } from "./model/Area";
+import { Catalogo } from "./model/Catalogo";
 import { EggGroup } from "./model/EggGroup";
 import { Encounter } from "./model/Encounter";
 import { EncounterCondition } from "./model/EncounterCondition";
@@ -11,6 +12,7 @@ import { Habilidade } from "./model/Habilidade";
 import { HabilidadeEffectEntry } from "./model/HabilidadeEffectEntry";
 import { HabilidadeFlavorTextEntry } from "./model/HabilidadeFlavorTextEntry";
 import { PalParkEncounter } from "./model/PalParkEncounter";
+import { Pokedex } from "./model/Pokedex";
 import { Pokemon } from "./model/Pokemon";
 import { PokemonHabilidade } from "./model/PokemonHabilidade";
 import { PokemonHabilidadeAntiga } from "./model/PokemonHabilidadeAntiga";
@@ -162,6 +164,18 @@ async function main() {
             const especie = await EspecieService.createEspecie(especie_data, growthRate)
 
             const especieInserted = await AppDataSource.getRepository(Especie).save(especie)
+
+            for (const catalog_data of  especie_data.pokedex_numbers) {
+
+                let pokedex = await EspecieService.searchPokedex(catalog_data.pokedex.url)
+
+                pokedex = await AppDataSource.getRepository(Pokedex).save(pokedex)
+
+                const catalogo = await EspecieService.createCatalogo(catalog_data, pokedex, especie)
+
+                await AppDataSource.getRepository(Catalogo).save(catalogo)
+                
+            }
 
             for (const egg_group_data of especie_data.egg_groups) {
 

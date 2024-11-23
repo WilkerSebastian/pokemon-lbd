@@ -1,10 +1,12 @@
 import { api } from "../config/api";
+import { Catalogo } from "../model/Catalogo";
 import { EggGroup } from "../model/EggGroup";
 import { Especie } from "../model/Especie";
 import { EspecieFlavorText } from "../model/EspecieFlavorText";
 import { Genero } from "../model/Genero";
 import { GrowthRate } from "../model/GrowthRate";
 import { PalParkEncounter } from "../model/PalParkEncounter";
+import { Pokedex } from "../model/Pokedex";
 
 export class EspecieService {
 
@@ -108,6 +110,36 @@ export class EspecieService {
         eggGroup.nome = data.name
 
         return eggGroup
+
+    }
+
+    public static async searchPokedex(url: string) {
+
+        const data = (await api.get(url)).data
+
+        const pokedex = new Pokedex()
+
+        const en_descriptions = (data.descriptions as any[]).filter(d => d.language.name == "en");
+
+        pokedex.id = data.id
+        pokedex.nome = data.name
+        pokedex.isMainSeries = data.is_main_series
+        pokedex.region = data.region ? data.region.name : null
+        pokedex.descricao = en_descriptions.length > 0 ? en_descriptions[0].description : null
+
+        return pokedex
+
+    }
+
+    public static async createCatalogo(data: any, pokedex: Pokedex, especie: Especie) {
+
+        const catalogo = new Catalogo()
+
+        catalogo.entryNumber = data.entry_number
+        catalogo.pokedex = pokedex
+        catalogo.especie = especie
+
+        return catalogo
 
     }
 
