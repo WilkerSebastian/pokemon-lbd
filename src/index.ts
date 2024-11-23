@@ -2,6 +2,9 @@ import { AppDataSource } from "./database/data-source";
 import { Area } from "./model/Area";
 import { Encounter } from "./model/Encounter";
 import { EncounterCondition } from "./model/EncounterCondition";
+import { Especie } from "./model/Especie";
+import { EspecieFlavorText } from "./model/EspecieFlavorText";
+import { GrowthRate } from "./model/GrowthRate";
 import { Habilidade } from "./model/Habilidade";
 import { HabilidadeEffectEntry } from "./model/HabilidadeEffectEntry";
 import { HabilidadeFlavorTextEntry } from "./model/HabilidadeFlavorTextEntry";
@@ -10,6 +13,7 @@ import { PokemonHabilidade } from "./model/PokemonHabilidade";
 import { PokemonHabilidadeAntiga } from "./model/PokemonHabilidadeAntiga";
 import { SpritePokemon } from "./model/SpritePokemon";
 import { EncounterService } from "./service/EncounterService";
+import { EspecieService } from "./service/EspecieService";
 import { HabilidadeService } from "./service/HabilidadeService";
 import { PokemonService } from "./service/PokemonService";
 
@@ -146,10 +150,28 @@ async function main() {
 
             }
 
+            const especie_data = await EspecieService.search(restData.species.url)
+
+            const growthRate = await EspecieService.searchEspecieGrowthRate(especie_data.growth_rate.url)
+
+            await AppDataSource.getRepository(GrowthRate).save(growthRate)
+
+            const especie = await EspecieService.createEspecie(especie_data, growthRate)
+
+            const especieInserted = await AppDataSource.getRepository(Especie).save(especie)
+
+            for (const flavorTextEntry of especie_data.flavor_text_entries) {
+
+                const especieFlavorText = await EspecieService.createEspecieFlavorText(flavorTextEntry, especieInserted)
+
+                await AppDataSource.getRepository(EspecieFlavorText).save(especieFlavorText)
+
+            }
+
             const sprites = await PokemonService.createSpritePokemon(restData.sprites, pokemon)
 
             await AppDataSource.getRepository(SpritePokemon).save(sprites)
-            
+
         }
 
         await AppDataSource.destroy();

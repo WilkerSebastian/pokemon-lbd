@@ -70,9 +70,6 @@ export class Especie {
   @Column("boolean", { name: "forms_switchable", nullable: true })
   formsSwitchable: boolean | null;
 
-  @Column("integer", { name: "especie_flavor_text_id", nullable: true })
-  especieFlavorTextId: number | null;
-
   @ManyToOne(() => GrowthRate, (growthRate) => growthRate.id)
   @JoinColumn([{ name: "growth_rate_id", referencedColumnName: "id" }])
   growthRate: GrowthRate;
