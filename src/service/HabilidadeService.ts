@@ -2,6 +2,9 @@ import axios from "axios";
 import { PokemonHabilidade } from "../model/PokemonHabilidade";
 import { Habilidade } from "../model/Habilidade";
 import type { Pokemon } from "../model/Pokemon";
+import { HabilidadeEffectEntry } from "../model/HabilidadeEffectEntry";
+import { HabilidadeFlavorTextEntry } from "../model/HabilidadeFlavorTextEntry";
+import { getUniqueProperties } from "../utils/uniqueProp";
 
 export class HabilidadeService {
 
@@ -16,7 +19,9 @@ export class HabilidadeService {
         habilidade.nome = data.name
         habilidade.generation = data.generation.name
 
-        return habilidade
+        const restData = getUniqueProperties(data, habilidade)
+
+        return {habilidade, restData}
 
     }
 
@@ -32,6 +37,32 @@ export class HabilidadeService {
 
         return pokemonHabilidade
 
+    }
+
+    public static async createHabilidadeFlavorTextEntry(data: any, habilidade: Habilidade) {
+        
+        const habilidadeFlavorTextEntry = new HabilidadeFlavorTextEntry()
+
+        habilidadeFlavorTextEntry.habilidadeId = habilidade.id
+        habilidadeFlavorTextEntry.versionGroup = data.version_group.name
+        habilidadeFlavorTextEntry.language = data.language.name
+        habilidadeFlavorTextEntry.flavorText = data.flavor_text
+
+        return habilidadeFlavorTextEntry
+
+    }
+
+    public static async createHabilidadeEffectEntry(data: any, habilidade: Habilidade) {
+
+        const habilidadeEffectEntry = new HabilidadeEffectEntry()
+        
+        habilidadeEffectEntry.habilidadeId = habilidade.id
+        habilidadeEffectEntry.language = data.language.name
+        habilidadeEffectEntry.effect = data.effect
+        habilidadeEffectEntry.shortEffect = data.short_effect
+
+        return habilidadeEffectEntry
+    
     }
 
 }

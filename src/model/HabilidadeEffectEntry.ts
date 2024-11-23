@@ -3,20 +3,13 @@ import { Habilidade } from "./Habilidade";
 
 @Index(
   "habilidade_effect_entry_pkey",
-  ["habilidadeId", "language", "versionGroup"],
+  ["habilidadeId", "language"],
   { unique: true }
 )
 @Entity("habilidade_effect_entry", { schema: "public" })
 export class HabilidadeEffectEntry {
   @Column("integer", { primary: true, name: "habilidade_id" })
   habilidadeId: number;
-
-  @Column("character varying", {
-    primary: true,
-    name: "version_group",
-    length: 50,
-  })
-  versionGroup: string;
 
   @Column("character varying", { primary: true, name: "language", length: 50 })
   language: string;
