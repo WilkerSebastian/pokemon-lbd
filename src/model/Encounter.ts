@@ -4,16 +4,15 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  PrimaryColumn,
 } from "typeorm";
 import { Area } from "./Area";
 import { Pokemon } from "./Pokemon";
-import { EncounterCondition } from "./EncounterCondition";
 
 @Index("encounter_pkey", ["id"], { unique: true })
 @Entity("encounter", { schema: "public" })
 export class Encounter {
-  @Column("integer", { primary: true, name: "id" })
+  @PrimaryColumn("integer", {generated: true, name: "id"})
   id: number;
 
   @Column("integer", { name: "min_level", nullable: true })

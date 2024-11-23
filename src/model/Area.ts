@@ -1,10 +1,10 @@
-import { Column, Entity, Index } from "typeorm";
+import { Column, Entity, Index, PrimaryColumn } from "typeorm";
 
 @Index("area_pkey", ["id"], { unique: true })
 @Entity("area", { schema: "public" })
 export class Area {
-  @Column("character varying", { primary: true, name: "id", length: 50 })
-  id: string;
+  @PrimaryColumn("integer", { name:"id" })
+  id: number;
 
   @Column("character varying", { name: "nome", nullable: true, length: 50 })
   nome: string | null;

@@ -1,10 +1,14 @@
 import { AppDataSource } from "./database/data-source";
+import { Area } from "./model/Area";
+import { Encounter } from "./model/Encounter";
+import { EncounterCondition } from "./model/EncounterCondition";
 import { Habilidade } from "./model/Habilidade";
 import { HabilidadeEffectEntry } from "./model/HabilidadeEffectEntry";
 import { HabilidadeFlavorTextEntry } from "./model/HabilidadeFlavorTextEntry";
 import { Pokemon } from "./model/Pokemon";
 import { PokemonHabilidade } from "./model/PokemonHabilidade";
 import { PokemonHabilidadeAntiga } from "./model/PokemonHabilidadeAntiga";
+import { EncounterService } from "./service/EncounterService";
 import { HabilidadeService } from "./service/HabilidadeService";
 import { PokemonService } from "./service/PokemonService";
 
@@ -17,11 +21,15 @@ async function main() {
         if (!AppDataSource.isInitialized) 
             throw new Error("Erro ao conectar com o banco");
 
-        const pokemonNames = ["eevee", "shiftry"];
+        const pokemonNames = ["eevee", "shiftry", "ralts"];
+
+        
 
         for (const pokemonName of pokemonNames) {
 
             let { pokemon, restData} = await PokemonService.search(pokemonName);
+
+            const encounters_data = await EncounterService.search(restData.location_area_encounters)
 
             await AppDataSource.getRepository(Pokemon).save(pokemon);
 
@@ -81,6 +89,58 @@ async function main() {
 
                     }
 
+                }
+
+            }
+
+            for (const edata of encounters_data) {
+
+                try {
+                    
+                    const area = await EncounterService.searchArea(edata.location_area.url)
+
+                    await AppDataSource.getRepository(Area).save(area)
+
+                    for (const encounter_data_real of edata.version_details) {
+
+                        const encounters_data = await EncounterService.createEncounters(encounter_data_real, area, pokemon)
+    
+                        for (const { encounter, conditions } of encounters_data) {
+    
+                            try {
+    
+                                let encouterInserted = await AppDataSource.getRepository(Encounter).save(encounter)
+    
+                                try {
+    
+                                    for (const condition of conditions) {
+        
+                                        const encounterCondition = await EncounterService.createEncounterCondition(condition, encouterInserted)
+            
+                                        await AppDataSource.getRepository(EncounterCondition).save(encounterCondition);
+                                    
+                                    }
+                                    
+                                } catch (error) {
+        
+                                    console.error(`erro ao tentar inserir codições de encontro do pokemon ${pokemon}: ${error}`);
+        
+                                }
+                                
+                            } catch (error) {
+    
+                                console.error(`erro ao inserir encontro do pokemon ${pokemon}: ${error}`);
+                                
+                            }
+    
+                        }
+    
+                    }
+
+                } catch (error) {
+
+                    console.error(`erro ao inserir area do pokemon: ${pokemon}: ${error}`)
+                    
                 }
 
             }
