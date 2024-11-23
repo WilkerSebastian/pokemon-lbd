@@ -1,5 +1,6 @@
 import { AppDataSource } from "./database/data-source";
 import { Area } from "./model/Area";
+import { EggGroup } from "./model/EggGroup";
 import { Encounter } from "./model/Encounter";
 import { EncounterCondition } from "./model/EncounterCondition";
 import { Especie } from "./model/Especie";
@@ -161,6 +162,14 @@ async function main() {
             const especie = await EspecieService.createEspecie(especie_data, growthRate)
 
             const especieInserted = await AppDataSource.getRepository(Especie).save(especie)
+
+            for (const egg_group_data of especie_data.egg_groups) {
+
+                const eggGroup = await EspecieService.searchEggGroup(egg_group_data.url, especieInserted)
+
+                await AppDataSource.getRepository(EggGroup).save(eggGroup)
+
+            }
 
             for (const genero_data of especie_data.genera) {
 

@@ -1,4 +1,5 @@
 import { api } from "../config/api";
+import { EggGroup } from "../model/EggGroup";
 import { Especie } from "../model/Especie";
 import { EspecieFlavorText } from "../model/EspecieFlavorText";
 import { Genero } from "../model/Genero";
@@ -93,6 +94,20 @@ export class EspecieService {
         genero.pokemonEspecie2 = especie
 
         return genero
+
+    }
+
+    public static async searchEggGroup(url: string, especie: Especie) {
+
+        const data = (await api.get(url)).data
+
+        const eggGroup = new EggGroup()
+
+        eggGroup.especieId = data.id
+        eggGroup.especie = especie
+        eggGroup.nome = data.name
+
+        return eggGroup
 
     }
 
