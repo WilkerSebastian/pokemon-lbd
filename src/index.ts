@@ -1,6 +1,9 @@
 import { AppDataSource } from "./database/data-source";
+import { Habilidade } from "./model/Habilidade";
 import { Pokemon } from "./model/Pokemon";
-import { pokemonService } from "./service/PokemonService";
+import { PokemonHabilidade } from "./model/PokemonHabilidade";
+import { HabilidadeService } from "./service/HabilidadeService";
+import { PokemonService } from "./service/PokemonService";
 
 async function main() {
 
@@ -15,15 +18,21 @@ async function main() {
 
         for (const pokemonName of pokemonNames) {
 
-            const result = await pokemonService.search(pokemonName);
+            const { pokemon, restData} = await PokemonService.search(pokemonName);
 
-            if (!result || !result.pokemon) 
-                throw new Error(`Falha ao buscar dados do Pokémon ${pokemonName}`);
+            await AppDataSource.getRepository(Pokemon).save(pokemon);
 
-            console.log(result.pokemon);
-            
+            for (const ability of restData.abilities) {
 
-            await AppDataSource.getRepository(Pokemon).save(result.pokemon);
+                let habilidade = await HabilidadeService.search(ability.ability.url)
+
+                habilidade = await AppDataSource.getRepository(Habilidade).save(habilidade);
+
+                const habilidadePokemon = await HabilidadeService.createPokemonHabilidade(ability, pokemon, habilidade);
+
+                await AppDataSource.getRepository(PokemonHabilidade).save(habilidadePokemon);
+
+            }
             
         }
 

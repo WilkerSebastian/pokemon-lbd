@@ -2,9 +2,9 @@ import { api } from "../config/api";
 import { Pokemon } from "../model/Pokemon";
 import { getUniqueProperties } from "../utils/uniqueProp";
 
-class PokemonService {
+export class PokemonService {
     
-    public async search(name: string) {
+    public static async search(name: string) {
 
         let pokemon: Pokemon = new Pokemon()
         let restData: Partial<any> = {}
@@ -36,5 +36,3 @@ class PokemonService {
     }
 
 }
-
-export const pokemonService = new PokemonService()

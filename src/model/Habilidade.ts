@@ -1,8 +1,4 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { HabilidadeEffectEntry } from "./HabilidadeEffectEntry";
-import { HabilidadeFlavorTextEntry } from "./HabilidadeFlavorTextEntry";
-import { PokemonHabilidade } from "./PokemonHabilidade";
-import { PokemonHabilidadeAntiga } from "./PokemonHabilidadeAntiga";
+import { Column, Entity, Index } from "typeorm";
 
 @Index("habilidade_pkey", ["id"], { unique: true })
 @Entity("habilidade", { schema: "public" })

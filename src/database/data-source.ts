@@ -9,6 +9,7 @@ export const AppDataSource = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     synchronize: process.env.NODE_ENV == "development", 
+    dropSchema: process.env.NODE_ENV == "development",
     logging: false,
     entities: ["src/model/*.ts"]
 });
