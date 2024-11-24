@@ -48,9 +48,9 @@ export class Movimento {
   })
   generation: string | null;
 
-  @ManyToOne(() => ContestEffect, (contestEffect) => contestEffect.id)
+  @ManyToOne(() => ContestEffect, (contestEffect) => contestEffect.id, {nullable: true})
   @JoinColumn([{ name: "contest_effect", referencedColumnName: "id" }])
-  contestEffect: ContestEffect;
+  contestEffect: ContestEffect | null;
 
   @ManyToOne(
     () => MoveDamageClass,

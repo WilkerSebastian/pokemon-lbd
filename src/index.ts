@@ -1,6 +1,7 @@
 import { AppDataSource, ensureDataSourceInitialized } from "./database/data-source";
 import { Area } from "./model/Area";
 import { Catalogo } from "./model/Catalogo";
+import type { ContestEffect } from "./model/ContestEffect";
 import { EggGroup } from "./model/EggGroup";
 import { Encounter } from "./model/Encounter";
 import { EncounterCondition } from "./model/EncounterCondition";
@@ -23,6 +24,7 @@ import { TipoEfetividade } from "./model/TipoEfetividade";
 import { EncounterService } from "./service/EncounterService";
 import { EspecieService } from "./service/EspecieService";
 import { HabilidadeService } from "./service/HabilidadeService";
+import { MovimentoService } from "./service/MovimentoService";
 import { PokemonService } from "./service/PokemonService";
 import { TipoService } from "./service/TipoService";
 
@@ -230,6 +232,26 @@ async function main() {
             }
 
             await TipoService.createTipoAntigo(restData.past_types, pokemon)
+
+            for (const moves_data of restData.moves) {
+
+                let contestEffect: ContestEffect | null = null
+
+                const move_data = await MovimentoService.search(moves_data.move.url)
+
+                if (move_data.contest_effect)
+                    contestEffect = await MovimentoService.createContestEffect(move_data.contest_effect.url)
+
+                const moveTarget = await MovimentoService.createMoveTarget(move_data.target)
+
+                const moveDamageClass = await MovimentoService.createMoveDamageClass(move_data.damage_class)
+
+                const movimento = await MovimentoService.createMove(move_data, moveTarget, moveDamageClass, contestEffect)
+
+                for (const version_group_detail of moves_data.version_group_details) 
+                    await MovimentoService.createAprende(version_group_detail, pokemon, movimento)
+
+            }
 
         }
 
