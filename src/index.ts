@@ -24,6 +24,7 @@ import { TipoEfetividade } from "./model/TipoEfetividade";
 import { EncounterService } from "./service/EncounterService";
 import { EspecieService } from "./service/EspecieService";
 import { HabilidadeService } from "./service/HabilidadeService";
+import { ItemService } from "./service/ItemService";
 import { MovimentoService } from "./service/MovimentoService";
 import { PokemonService } from "./service/PokemonService";
 import { TipoService } from "./service/TipoService";
@@ -37,7 +38,7 @@ async function main() {
         if (!AppDataSource.isInitialized) 
             throw new Error("Erro ao conectar com o banco");
 
-        const pokemonNames = ["eevee", "shiftry", "ralts", "granbull"];
+        const pokemonNames = ["krookodile"];
 
         for (const pokemonName of pokemonNames) {
 
@@ -250,6 +251,16 @@ async function main() {
 
                 for (const version_group_detail of moves_data.version_group_details) 
                     await MovimentoService.createAprende(version_group_detail, pokemon, movimento)
+
+            }
+
+            for (const heldItemData of restData.held_items) {
+
+                const itemData = await ItemService.search(heldItemData)
+
+                const item = await ItemService.createItem(itemData)
+
+                await ItemService.createItemSegurado(heldItemData.version_details, pokemon, item)
 
             }
 

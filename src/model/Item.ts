@@ -25,13 +25,7 @@ export class Item {
   @Column("character varying", { name: "category", nullable: true, length: 50 })
   category: string | null;
 
-  @Column("character varying", { name: "pocket", nullable: true, length: 50 })
-  pocket: string | null;
-
   @Column("text", { name: "sprite", nullable: true })
   sprite: string | null;
-
-  @Column("integer", { name: "baby_trigger_especie", nullable: true })
-  babyTriggerEspecie: number | null;
 
 }

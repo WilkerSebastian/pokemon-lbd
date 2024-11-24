@@ -30,7 +30,7 @@ export class EspecieService {
         especie.genderRate = data.gender_rate
         especie.ordem = data.order
         especie.hatchCounter = data.hatch_counter
-        especie.habitat = data.habitat.name
+        especie.habitat = data.habitat ? data.habitat.name : null
         especie.generation = data.generation.name
         especie.formato = data.shape.name
         especie.hasGenderDifferences = data.has_gender_differences
