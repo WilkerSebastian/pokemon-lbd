@@ -4,7 +4,7 @@ import { Tipo } from "./Tipo";
 
 @Entity("pokemon_tipo_antigo", { schema: "public" })
 export class PokemonTipoAntigo {
-  @PrimaryColumn("integer", { generated: "increment", name: "pokemon_id" })
+  @PrimaryColumn("integer", { generated: "increment", name: "id" })
   id: number
 
   @Column("character varying", {

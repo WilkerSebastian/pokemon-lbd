@@ -13,3 +13,10 @@ export const AppDataSource = new DataSource({
     logging: false,
     entities: ["src/model/*.ts"]
 });
+
+export async function ensureDataSourceInitialized() {
+
+    if (!AppDataSource.isInitialized) 
+        await AppDataSource.initialize();
+
+}  

@@ -1,4 +1,4 @@
-import { AppDataSource } from "./database/data-source";
+import { AppDataSource, ensureDataSourceInitialized } from "./database/data-source";
 import { Area } from "./model/Area";
 import { Catalogo } from "./model/Catalogo";
 import { EggGroup } from "./model/EggGroup";
@@ -16,24 +16,26 @@ import { Pokedex } from "./model/Pokedex";
 import { Pokemon } from "./model/Pokemon";
 import { PokemonHabilidade } from "./model/PokemonHabilidade";
 import { PokemonHabilidadeAntiga } from "./model/PokemonHabilidadeAntiga";
+import { PokemonTipo } from "./model/PokemonTipo";
 import { SpritePokemon } from "./model/SpritePokemon";
+import { Tipo } from "./model/Tipo";
+import { TipoEfetividade } from "./model/TipoEfetividade";
 import { EncounterService } from "./service/EncounterService";
 import { EspecieService } from "./service/EspecieService";
 import { HabilidadeService } from "./service/HabilidadeService";
 import { PokemonService } from "./service/PokemonService";
+import { TipoService } from "./service/TipoService";
 
 async function main() {
 
     try {
 
-        await AppDataSource.initialize();
+        await ensureDataSourceInitialized();
 
         if (!AppDataSource.isInitialized) 
             throw new Error("Erro ao conectar com o banco");
 
-        const pokemonNames = ["eevee", "shiftry", "ralts"];
-
-        
+        const pokemonNames = ["eevee", "shiftry", "ralts", "granbull"];
 
         for (const pokemonName of pokemonNames) {
 
@@ -213,9 +215,23 @@ async function main() {
 
             await AppDataSource.getRepository(SpritePokemon).save(sprites)
 
-        }
+            for (const tipo_data of restData.types) {
 
-        await AppDataSource.destroy();
+                let { tipo, restData } = await TipoService.search(tipo_data.type.url)
+
+                await AppDataSource.getRepository(Tipo).save(tipo)
+
+                const pokemonType = await TipoService.createPokemonTipo(tipo, pokemon)
+                
+                await AppDataSource.getRepository(PokemonTipo).save(pokemonType)
+
+                await TipoService.createTipoEfetividade(restData.damage_relations, tipo)
+
+            }
+
+            await TipoService.createTipoAntigo(restData.past_types, pokemon)
+
+        }
 
     } catch (error) {
 
