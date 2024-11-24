@@ -171,6 +171,10 @@ async function main() {
 
             const especieInserted = await AppDataSource.getRepository(Especie).save(especie)
 
+            pokemon.especie = especieInserted
+
+            await AppDataSource.getRepository(Pokemon).save(pokemon)
+
             for (const catalog_data of  especie_data.pokedex_numbers) {
 
                 let pokedex = await EspecieService.searchPokedex(catalog_data.pokedex.url)
