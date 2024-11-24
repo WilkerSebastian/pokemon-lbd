@@ -27,6 +27,7 @@ import { HabilidadeService } from "./service/HabilidadeService";
 import { ItemService } from "./service/ItemService";
 import { MovimentoService } from "./service/MovimentoService";
 import { PokemonService } from "./service/PokemonService";
+import { StatService } from "./service/StatService";
 import { TipoService } from "./service/TipoService";
 
 async function main() {
@@ -261,6 +262,16 @@ async function main() {
                 const item = await ItemService.createItem(itemData)
 
                 await ItemService.createItemSegurado(heldItemData.version_details, pokemon, item)
+
+            }
+
+            for (const stats_data of restData.stats) {
+
+                const stat_data = await StatService.search(stats_data)
+
+                const stat = await StatService.createStat(stat_data)
+
+                await StatService.createPokemonStat(stats_data, pokemon, stat)
 
             }
 
