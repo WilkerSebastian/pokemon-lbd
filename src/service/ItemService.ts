@@ -2,6 +2,8 @@ import { api } from "../config/api"
 import { AppDataSource, ensureDataSourceInitialized } from "../database/data-source"
 import { Item } from "../model/Item"
 import { ItemSegurado } from "../model/ItemSegurado"
+import { Machine } from "../model/Machine"
+import type { Movimento } from "../model/Movimento"
 import type { Pokemon } from "../model/Pokemon"
 
 export class ItemService {
@@ -18,7 +20,7 @@ export class ItemService {
 
         await ensureDataSourceInitialized()
 
-        const item = new Item()
+        let item = new Item()
 
         item.id = data.id
         item.nome = data.name
@@ -28,7 +30,15 @@ export class ItemService {
         item.category = data.category ? data.category.name : null
         item.sprite = data.sprites ? data.sprites.default : null
 
-        return await AppDataSource.getRepository(Item).save(item)
+        await AppDataSource.getRepository(Item).save(item)
+
+        for (const data_machine of data.machines) {
+            
+            await this.createMachine(data_machine, {item})
+
+        }
+
+        return item
 
     }
 
@@ -48,6 +58,34 @@ export class ItemService {
             await AppDataSource.getRepository(ItemSegurado).save(itemSegurado)
 
         }
+
+    }
+
+    public static async createMachine(data: any, extraData: {movimento?: Movimento, item?: Item}) {
+
+        await ensureDataSourceInitialized()
+
+        let machine = await AppDataSource.getRepository(Machine).findOne({where: {
+            movimento: extraData.movimento,
+            item: extraData.item
+        }})
+
+        if (!machine) {
+
+            machine = new Machine()
+
+            machine.versionGroup = data.version_group.name
+
+        }
+
+        if (!machine.item)
+            machine.item = extraData.item ?? null
+
+        if (!machine.movimento)
+            machine.movimento = extraData.movimento ?? null
+
+        await AppDataSource.getRepository(Machine).save(machine)
+
 
     }
 

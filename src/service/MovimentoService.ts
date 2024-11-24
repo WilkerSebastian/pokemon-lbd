@@ -2,11 +2,13 @@ import { api } from "../config/api"
 import { AppDataSource, ensureDataSourceInitialized } from "../database/data-source";
 import { Aprende } from "../model/Aprende";
 import { ContestEffect } from "../model/ContestEffect";
+import { Machine } from "../model/Machine";
 import { MoveDamageClass } from "../model/MoveDamageClass";
 import { MoveTarget } from "../model/MoveTarget";
 import { Movimento } from "../model/Movimento";
 import type { Pokemon } from "../model/Pokemon";
 import { Tipo } from "../model/Tipo";
+import { ItemService } from "./ItemService";
 
 export class MovimentoService {
 
@@ -105,6 +107,12 @@ export class MovimentoService {
         const repositoryAprende = AppDataSource.getRepository(Aprende);
 
         const aprende = new Aprende()
+
+        if (data.move_learn_method.name == "machine") {
+
+            await ItemService.createMachine(data, {movimento})
+
+        }
 
         aprende.levelLearnedAt = data.level_learned_at
         aprende.metodo = data.move_learn_method.name
