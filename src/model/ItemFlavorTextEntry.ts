@@ -4,7 +4,7 @@ import { Item } from "./Item";
 @Index("item_flavor_text_entry_pkey", ["id"], { unique: true })
 @Entity("item_flavor_text_entry", { schema: "public" })
 export class ItemFlavorTextEntry {
-  @Column("integer", { primary: true, name: "id" })
+  @Column("integer", { primary: true, generated: "increment", name: "id" })
   id: number;
 
   @Column("character varying", {

@@ -3,7 +3,7 @@ import { Item } from "./Item";
 
 @Entity("item_effect_entry", { schema: "public" })
 export class ItemEffectEntry {
-  @PrimaryColumn("integer", { primary: true, name: "id" })
+  @PrimaryColumn("integer", { primary: true, generated: "increment", name: "id" })
   id: number;
 
   @Column("text", { name: "effect", nullable: true })

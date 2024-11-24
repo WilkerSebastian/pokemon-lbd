@@ -6,8 +6,12 @@ export class ItemGameIndex {
   @PrimaryColumn("integer", { generated: "increment", name: "id" })
   id: number;
 
-  @Column("integer", { name: "generation", nullable: true })
-  generation: number | null;
+  @Column("character varying", {
+    name: "version_group",
+    nullable: true,
+    length: 50,
+  })
+  generation: string | null;
 
   @Column("integer", { name: "game_index", nullable: true })
   gameIndex: number | null;
