@@ -3,7 +3,7 @@ import { Stat } from "./Stat";
 
 @Entity("caracteristica", { schema: "public" })
 export class Caracteristica {
-  @PrimaryColumn("integer", { generated: "increment", name: "id" })
+  @PrimaryColumn("integer", { name: "id" })
   id: number;
   
   @Column("text", { name: "descricao", nullable: true })
