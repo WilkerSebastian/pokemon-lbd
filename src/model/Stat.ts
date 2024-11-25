@@ -4,12 +4,7 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
 } from "typeorm";
-import { Caracteristica } from "./Caracteristica";
-import { Modifica } from "./Modifica";
-import { Nature } from "./Nature";
-import { PokemonStat } from "./PokemonStat";
 import { MoveDamageClass } from "./MoveDamageClass";
 
 @Index("stat_pkey", ["id"], { unique: true })
@@ -18,7 +13,7 @@ export class Stat {
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("boolean", { name: "is_battle_only", nullable: true })

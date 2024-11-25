@@ -21,8 +21,8 @@ export class MovimentoPastValues {
   @Column("integer", { name: "tipo_id", nullable: true })
   tipoId: number | null;
 
-  @Column("integer", { name: "version_group", nullable: true })
-  versionGroup: number | null;
+  @Column("character varying", { name: "nome", nullable: true })
+  versionGroup: string | null;
 
   @ManyToOne(() => Movimento, (movimento) => movimento.id)
   @JoinColumn([{ name: "movimento_id", referencedColumnName: "id" }])

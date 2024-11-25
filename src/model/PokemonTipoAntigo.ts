@@ -10,7 +10,6 @@ export class PokemonTipoAntigo {
   @Column("character varying", {
     name: "generation",
     nullable: true,
-    length: 50,
   })
   generation: string | null;
 

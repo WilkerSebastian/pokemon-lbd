@@ -7,7 +7,7 @@ export class EggGroup {
   @Column("integer", { primary: true, name: "especie_id" })
   especieId: number;
 
-  @Column("character varying", { primary: true, name: "nome", length: 50 })
+  @Column("character varying", { primary: true, name: "nome" })
   nome: string;
 
   @ManyToOne(() => Especie, (especie) => especie.id)

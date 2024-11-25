@@ -9,7 +9,6 @@ export class ItemGameIndex {
   @Column("character varying", {
     name: "version_group",
     nullable: true,
-    length: 50,
   })
   generation: string | null;
 

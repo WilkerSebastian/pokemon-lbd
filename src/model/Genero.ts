@@ -7,10 +7,10 @@ export class Genero {
   @Column("integer", { primary: true, name: "pokemon_especie" })
   pokemonEspecie: number;
 
-  @Column("character varying", { primary: true, name: "lingua", length: 50 })
+  @Column("character varying", { primary: true, name: "lingua" })
   lingua: string;
 
-  @Column("character varying", { name: "genero", nullable: true, length: 50 })
+  @Column("character varying", { name: "genero", nullable: true })
   genero: string | null;
 
   @ManyToOne(() => Especie, (especie) => especie.id)

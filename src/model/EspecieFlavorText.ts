@@ -9,10 +9,10 @@ export class EspecieFlavorText {
   @Column("integer", { primary: true, name: "especie_id" })
   especieId: number;
 
-  @Column("character varying", { primary: true, name: "version", length: 50 })
+  @Column("character varying", { primary: true, name: "version" })
   version: string;
 
-  @Column("character varying", { primary: true, name: "language", length: 50 })
+  @Column("character varying", { primary: true, name: "language" })
   language: string;
 
   @Column("text", { name: "flavor_text", nullable: true })

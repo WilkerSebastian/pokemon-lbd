@@ -11,7 +11,7 @@ export class HabilidadeEffectEntry {
   @Column("integer", { primary: true, name: "habilidade_id" })
   habilidadeId: number;
 
-  @Column("character varying", { primary: true, name: "language", length: 50 })
+  @Column("character varying", { primary: true, name: "language" })
   language: string;
 
   @Column("text", { name: "effect", nullable: true })

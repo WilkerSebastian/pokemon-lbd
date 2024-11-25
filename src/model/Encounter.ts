@@ -24,10 +24,10 @@ export class Encounter {
   @Column("integer", { name: "chance", nullable: true })
   chance: number | null;
 
-  @Column("character varying", { name: "metodo", nullable: true, length: 50 })
+  @Column("character varying", { name: "metodo", nullable: true })
   metodo: string | null;
 
-  @Column("character varying", { name: "version", nullable: true, length: 50 })
+  @Column("character varying", { name: "version", nullable: true })
   version: string | null;
 
   @Column("integer", { name: "max_chance", nullable: true })

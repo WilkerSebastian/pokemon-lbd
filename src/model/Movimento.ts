@@ -16,7 +16,7 @@ export class Movimento {
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("integer", { name: "accuracy", nullable: true })
@@ -37,14 +37,12 @@ export class Movimento {
   @Column("character varying", {
     name: "contest_type",
     nullable: true,
-    length: 50,
   })
   contestType: string | null;
 
   @Column("character varying", {
     name: "generation",
     nullable: true,
-    length: 50,
   })
   generation: string | null;
 

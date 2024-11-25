@@ -7,7 +7,7 @@ export class PokeathlonStatChange {
   @Column("integer", { primary: true, name: "nature_id" })
   natureId: number;
 
-  @Column("character varying", { primary: true, name: "stat", length: 50 })
+  @Column("character varying", { primary: true, name: "stat" })
   stat: string;
 
   @Column("integer", { name: "max_change", nullable: true })

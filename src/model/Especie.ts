@@ -18,7 +18,7 @@ import { Pokemon } from "./Pokemon";
 @Index("especie_pkey", ["id"], { unique: true })
 @Entity("especie", { schema: "public" })
 export class Especie {
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("integer", { primary: true, name: "id" })
@@ -39,10 +39,10 @@ export class Especie {
   @Column("integer", { name: "hatch_counter", nullable: true })
   hatchCounter: number | null;
 
-  @Column("character varying", { name: "cor", nullable: true, length: 50 })
+  @Column("character varying", { name: "cor", nullable: true })
   cor: string | null;
 
-  @Column("character varying", { name: "habitat", nullable: true, length: 50 })
+  @Column("character varying", { name: "habitat", nullable: true })
   habitat: string | null;
 
   @Column("character varying", {
@@ -52,7 +52,7 @@ export class Especie {
   })
   generation: string | null;
 
-  @Column("character varying", { name: "formato", nullable: true, length: 50 })
+  @Column("character varying", { name: "formato", nullable: true })
   formato: string | null;
 
   @Column("boolean", { name: "has_gender_differences", nullable: true })

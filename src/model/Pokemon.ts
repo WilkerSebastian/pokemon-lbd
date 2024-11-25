@@ -10,7 +10,7 @@ import { Especie } from "./Especie";
 @Index("pokemon_pkey", ["id"], { unique: true })
 @Entity("pokemon", { schema: "public" })
 export class Pokemon {
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("integer", { primary: true, name: "id" })

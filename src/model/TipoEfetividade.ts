@@ -6,7 +6,7 @@ export class TipoEfetividade {
   @PrimaryColumn("integer", { generated: "increment", name: "id" })
   id: number;
 
-  @Column("character varying", { name: "relacao", nullable: true, length: 50 })
+  @Column("character varying", { name: "relacao", nullable: true })
   relacao: string | null;
 
   @ManyToOne(() => Tipo, (tipo) => tipo.id)

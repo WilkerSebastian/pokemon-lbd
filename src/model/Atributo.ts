@@ -6,7 +6,7 @@ export class Atributo {
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("text", { name: "descricao", nullable: true })

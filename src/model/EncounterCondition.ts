@@ -9,7 +9,7 @@ export class EncounterCondition {
   @Column("integer", { primary: true, name: "encounter_id" })
   encounterId: number;
 
-  @Column("character varying", { primary: true, name: "condition", length: 50 })
+  @Column("character varying", { primary: true, name: "condition" })
   condition: string;
 
   @ManyToOne(() => Encounter, (encounter) => encounter.id)

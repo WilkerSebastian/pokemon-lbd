@@ -6,7 +6,7 @@ export class PalParkEncounter {
   @PrimaryColumn("integer", { primary: true, generated: true, name: "id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("integer", { name: "base_score", nullable: true })

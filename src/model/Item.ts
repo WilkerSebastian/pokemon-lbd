@@ -6,7 +6,7 @@ export class Item {
   @PrimaryColumn("integer", { name: "id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("integer", { name: "custo", nullable: true })
@@ -18,11 +18,10 @@ export class Item {
   @Column("character varying", {
     name: "fling_effect",
     nullable: true,
-    length: 50,
   })
   flingEffect: string | null;
 
-  @Column("character varying", { name: "category", nullable: true, length: 50 })
+  @Column("character varying", { name: "category", nullable: true })
   category: string | null;
 
   @Column("text", { name: "sprite", nullable: true })

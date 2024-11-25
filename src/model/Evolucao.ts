@@ -13,10 +13,10 @@ export class Evolucao {
   @Column("integer", { name: "location", nullable: true })
   location: number | null;
 
-  @Column("character varying", { name: "trigger", nullable: true, length: 50 })
+  @Column("character varying", { name: "trigger", nullable: true })
   trigger: string | null;
 
-  @Column("character varying", { name: "genero", nullable: true, length: 50 })
+  @Column("character varying", { name: "genero", nullable: true })
   genero: string | null;
 
   @Column("integer", { name: "min_affection", nullable: true })

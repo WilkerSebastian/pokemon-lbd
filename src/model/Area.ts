@@ -6,12 +6,12 @@ export class Area {
   @PrimaryColumn("integer", { name:"id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
-  @Column("character varying", { name: "location", nullable: true, length: 50 })
+  @Column("character varying", { name: "location", nullable: true })
   location: string | null;
 
-  @Column("character varying", { name: "region", nullable: true, length: 50 })
+  @Column("character varying", { name: "region", nullable: true })
   region: string | null;
 }

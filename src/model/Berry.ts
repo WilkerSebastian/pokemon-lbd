@@ -15,7 +15,7 @@ export class Berry {
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @Column("character varying", {
@@ -43,7 +43,7 @@ export class Berry {
   @Column("integer", { name: "growth_time", nullable: true })
   growthTime: number | null;
 
-  @Column("character varying", { name: "firmness", nullable: true, length: 50 })
+  @Column("character varying", { name: "firmness", nullable: true })
   firmness: string | null;
 
   @ManyToOne(() => Item, (item) => item.id)

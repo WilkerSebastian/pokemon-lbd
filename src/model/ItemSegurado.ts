@@ -8,7 +8,7 @@ export class ItemSegurado {
   @Column("integer", { primary: true, generated: "increment", name: "id" })
   id: number;
 
-  @Column("character varying", { name: "version", nullable: true, length: 50 })
+  @Column("character varying", { name: "version", nullable: true })
   version: string | null;
 
   @Column("integer", { name: "rarity", nullable: true })

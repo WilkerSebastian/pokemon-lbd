@@ -108,6 +108,8 @@ export class TipoService {
 
                         await repository.save(tipo2)
 
+                        await this.createTipoEfetividade(data2.damage_relations, tipo2)
+
                     }
 
                     const exist = await repositoryEfetividade.existsBy({
@@ -148,6 +150,8 @@ export class TipoService {
                         tipo2.generation = data2.generation.name
 
                         await repository.save(tipo2)
+
+                        await this.createTipoEfetividade(data2.damage_relations, tipo2)
 
                     }                    
 

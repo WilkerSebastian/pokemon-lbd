@@ -4,12 +4,9 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
 } from "typeorm";
-import { BattleStylePreference } from "./BattleStylePreference";
 import { Flavor } from "./Flavor";
 import { Stat } from "./Stat";
-import { PokeathlonStatChange } from "./PokeathlonStatChange";
 
 @Index("nature_pkey", ["id"], { unique: true })
 @Entity("nature", { schema: "public" })
@@ -17,7 +14,7 @@ export class Nature {
   @Column("integer", { primary: true, name: "id" })
   id: number;
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @ManyToOne(() => Flavor, (flavor) => flavor.id)

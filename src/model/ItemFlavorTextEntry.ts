@@ -9,15 +9,14 @@ export class ItemFlavorTextEntry {
 
   @Column("character varying", {
     name: "version_group",
-    nullable: true,
-    length: 50,
+    nullable: true
   })
   versionGroup: string | null;
 
   @Column("text", { name: "flavor_text", nullable: true })
   flavorText: string | null;
 
-  @Column("character varying", { name: "language", nullable: true, length: 50 })
+  @Column("character varying", { name: "language", nullable: true })
   language: string | null;
 
   @ManyToOne(() => Item, (item) => item.id)

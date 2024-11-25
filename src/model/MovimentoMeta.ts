@@ -6,7 +6,7 @@ export class MovimentoMeta {
   @PrimaryColumn("integer", { generated: "increment", name: "id" })
   id: number;
 
-  @Column("character varying", { name: "ailment", nullable: true, length: 50 })
+  @Column("character varying", { name: "ailment", nullable: true })
   ailment: string | null;
 
   @Column("integer", { name: "crit_rate", nullable: true })
@@ -33,7 +33,7 @@ export class MovimentoMeta {
   @Column("integer", { name: "stat_chance", nullable: true })
   statChance: number | null;
 
-  @Column("character varying", { name: "category", nullable: true, length: 50 })
+  @Column("character varying", { name: "category", nullable: true })
   category: string | null;
 
   @ManyToOne(() => Movimento, (movimento) => movimento.id)

@@ -10,7 +10,7 @@ export class Aprende {
   @Column("integer", { name: "level_learned_at", nullable: true })
   levelLearnedAt: number | null;
 
-  @Column("character varying", { name: "metodo", nullable: true, length: 50 })
+  @Column("character varying", { name: "metodo", nullable: true })
   metodo: string | null;
 
   @Column("character varying", {

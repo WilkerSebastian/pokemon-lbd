@@ -4,7 +4,7 @@ import { Column, Entity, Index, PrimaryColumn } from "typeorm";
 @Entity("tipo", { schema: "public" })
 export class Tipo {
 
-  @Column("character varying", { name: "nome", nullable: true, length: 50 })
+  @Column("character varying", { name: "nome", nullable: true })
   nome: string | null;
 
   @PrimaryColumn("integer", { name: "id" })
@@ -13,14 +13,12 @@ export class Tipo {
   @Column("character varying", {
     name: "move_damage_class",
     nullable: true,
-    length: 50,
   })
   moveDamageClass: string | null;
 
   @Column("character varying", {
     name: "generation",
     nullable: true,
-    length: 50,
   })
   generation: string | null;
 

@@ -39,9 +39,13 @@ async function main() {
         if (!AppDataSource.isInitialized) 
             throw new Error("Erro ao conectar com o banco");
 
-        const pokemonNames = ["krookodile"];
+        const pokemonNames = ["gardevoir", "groudon", "chansey", "eevee", "ninetales", "krookodile", "swampert", "exeggutor", "metagross", "absol"];
 
+        console.log("iniciando o scrpit");
+        
         for (const pokemonName of pokemonNames) {
+
+            console.log(`inseriando o pokemon ${pokemonName}`);
 
             let { pokemon, restData} = await PokemonService.search(pokemonName);
 
@@ -49,9 +53,14 @@ async function main() {
 
             await AppDataSource.getRepository(Pokemon).save(pokemon);
 
+            console.log("inserindo as habilidades");
+
             for (const ability of restData.abilities) {
 
+
                 let { habilidade, restData } = await HabilidadeService.search(ability.ability.url)
+
+                console.log(`habilidade ${habilidade.nome}`);
 
                 habilidade = await AppDataSource.getRepository(Habilidade).save(habilidade);
 
@@ -109,6 +118,8 @@ async function main() {
 
             }
 
+            console.log("inserindo os encontros");
+            
             for (const edata of encounters_data) {
 
                 try {
@@ -155,11 +166,13 @@ async function main() {
 
                 } catch (error) {
 
-                    console.error(`erro ao inserir area do pokemon: ${pokemon}: ${error}`)
+                    console.error(`erro ao inserir area do pokemon: ${pokemon.nome}: ${error}`)
                     
                 }
 
             }
+
+            console.log(`inserindo as especies do pokemon: ${pokemon.nome}`);
 
             const especie_data = await EspecieService.search(restData.species.url)
 
@@ -219,6 +232,8 @@ async function main() {
 
             }
 
+            console.log(`inserindo os sprites do pokemon: ${pokemon.nome}`);
+            
             const sprites = await PokemonService.createSpritePokemon(restData.sprites, pokemon)
 
             await AppDataSource.getRepository(SpritePokemon).save(sprites)
@@ -226,6 +241,8 @@ async function main() {
             for (const tipo_data of restData.types) {
 
                 let { tipo, restData } = await TipoService.search(tipo_data.type.url)
+
+                console.log(`inserindo o tipo do pokemon: ${tipo.nome}`);
 
                 await AppDataSource.getRepository(Tipo).save(tipo)
 
@@ -245,6 +262,8 @@ async function main() {
 
                 const move_data = await MovimentoService.search(moves_data.move.url)
 
+                console.log(`inserindo o movimento do pokemon: ${move_data.name}`);
+
                 if (move_data.contest_effect)
                     contestEffect = await MovimentoService.createContestEffect(move_data.contest_effect.url)
 
@@ -261,6 +280,8 @@ async function main() {
 
             for (const heldItemData of restData.held_items) {
 
+                console.log(`inserindo o item do pokemon: ${heldItemData.item.name}`);
+
                 const itemData = await ItemService.search(heldItemData)
 
                 const item = await ItemService.createItem(itemData)
@@ -270,6 +291,8 @@ async function main() {
             }
 
             for (const stats_data of restData.stats) {
+
+                console.log(`inserindo o stat do pokemon: ${stats_data.stat.name}`);
 
                 const stat_data = await StatService.search(stats_data)
 

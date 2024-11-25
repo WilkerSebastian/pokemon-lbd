@@ -18,7 +18,7 @@ export class HabilidadeFlavorTextEntry {
   })
   versionGroup: string;
 
-  @Column("character varying", { primary: true, name: "language", length: 50 })
+  @Column("character varying", { primary: true, name: "language" })
   language: string;
 
   @Column("text", { name: "flavor_text", nullable: true })

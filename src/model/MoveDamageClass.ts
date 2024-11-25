@@ -5,7 +5,7 @@ import { Stat } from "./Stat";
 @Index("move_damage_class_pkey", ["nome"], { unique: true })
 @Entity("move_damage_class", { schema: "public" })
 export class MoveDamageClass {
-  @Column("character varying", { primary: true, name: "nome", length: 50 })
+  @Column("character varying", { primary: true, name: "nome" })
   nome: string;
 
   @Column("character varying", {

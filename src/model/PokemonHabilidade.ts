@@ -10,7 +10,6 @@ export class PokemonHabilidade {
   @Column("character varying", {
     name: "version_group",
     nullable: true,
-    length: 50,
   })
   versionGroup: string | null;
 
